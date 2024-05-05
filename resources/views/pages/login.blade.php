@@ -22,17 +22,35 @@
 
 
 <div class="card p-3">
-    <form action="{{route('register')}}" method="POST">
+    
+@if(session()->has('error'))
+    <div class="alert alert-danger">
+        {{ session()->get('error') }}
+    </div>
+@endif
+
+
+    <form action="{{route('doLogin')}}" method="POST">
         @csrf
 
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" name="email">
+            <input type="email" class="form-control" name="email" value="{{old('email')}}">
+            @error('email')
+            <p class="text-danger">
+            {{ $message }}
+            </p>
+            @enderror
         </div>
 
         <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" name="password">
+            <input type="password" class="form-control" name="password" value="{{old('password')}}">
+            @error('password')
+            <p class="text-danger">
+            {{ $message }}
+            </p>
+            @enderror
         </div>
 
         <button type="submit" class="btn btn-primary">Log In</button>
