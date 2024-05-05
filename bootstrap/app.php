@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\CustomAuth;
+use App\Http\Middleware\LoginGaurd;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -12,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+        $middleware->alias([
+            "customAuth"      => CustomAuth::class,
+            "loginGaurd"      => LoginGaurd::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

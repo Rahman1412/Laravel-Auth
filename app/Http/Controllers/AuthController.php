@@ -72,6 +72,19 @@ class AuthController extends Controller
     }
 
     public function dashboard(){
-        return view('pages.dashboard');
+        $user = [];
+        if(Session::has('user')){
+            $user = Session::get('user');
+        }
+        return view('pages.dashboard',compact('user'));
+    }
+
+    public function logout(){
+        if(Session::has('user')){
+            Session::pull('user');
+            return redirect('login');
+        }else{
+            return redirect('login');
+        }
     }
 }
